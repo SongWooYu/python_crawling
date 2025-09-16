@@ -1,0 +1,36 @@
+{
+    "name": "Python Crawling Environment",
+    "build": {
+        // Dockerfile이 있는 위치를 알려줍니다.
+        "dockerfile": "../Dockerfile",
+        // 빌드 컨텍스트는 프로젝트의 루트 폴더입니다.
+        "context": ".."
+    },
+
+    // 컨테이너가 생성될 때 로컬 디스크를 연결(마운트)하는 설정
+    "mounts": [
+        // D:\workspace\python_crawling 폴더를 컨테이너 내부의 /app 폴더와 연결
+        "source=D:\\workspace\\python_crawling,target=/app,type=bind"
+    ],
+
+    // 컨테이너 내부에서 VS Code가 어떻게 동작할지 설정
+    "customizations": {
+        "vscode": {
+            // 컨테이너가 실행되면 자동으로 설치할 VS Code 확장 프로그램
+            "extensions": [
+                "ms-python.python" // 파이썬 개발 필수 확장 프로그램
+            ],
+            // 컨테이너 내부의 VS Code에 적용할 설정
+            "settings": {
+                // 파이썬 인터프리터 경로를 컨테이너 내부의 경로로 지정
+                "python.defaultInterpreterPath": "/usr/local/bin/python"
+            }
+        }
+    },
+
+    // 컨테이너에 접속했을 때 열릴 작업 폴더
+    "workspaceFolder": "/app",
+
+    // 컨테이너가 중지될 때 자동으로 삭제되도록 설정
+    "runArgs": ["--rm"]
+}
